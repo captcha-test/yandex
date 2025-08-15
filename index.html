@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>Yandex SmartCaptcha Test</title>
-  <script src="https://smartcaptcha.yandex.net/smartcaptcha.js" async defer></script>
+  <script src="https://smartcaptcha.yandex.net/smartcaptcha.js"></script>
   <style>
     body { font-family: Arial, sans-serif; background: #f7f7f7; text-align: center; padding: 50px; }
     a { text-decoration: none; display: inline-block; margin-bottom: 20px; background: #4a90e2; color: white; padding: 8px 15px; border-radius: 5px; }
     #smartcaptcha-container { display: inline-block; margin-top: 30px; }
+    button { padding: 8px 20px; font-size: 16px; border: none; border-radius: 5px; background: #4a90e2; color: white; cursor: pointer; }
+    button:hover { background: #357ABD; }
   </style>
 </head>
 <body>
@@ -20,20 +22,20 @@
   </form>
 
   <script>
-    // Initialize SmartCaptcha
-    window.ymSmartCaptchaInit = function() {
-      new SmartCaptcha({
-        container: 'smartcaptcha-container',
-        sitekey: 'ysc1_ixcFBGJXguan8q0Df8U9fAyVhWiPlCKfEt822HsW532ebb7d',
-        onSuccess: function(token) {
-          console.log('Captcha success, token:', token);
-          let input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = 'smartcaptcha_token';
-          input.value = token;
-          document.getElementById('captcha-form').appendChild(input);
-        }
-      });
+    window.onload = function() {
+      if (typeof SmartCaptcha !== 'undefined') {
+        new SmartCaptcha({
+          container: 'smartcaptcha-container',
+          sitekey: 'ysc1_ixcFBGJXguan8q0Df8U9fAyVhWiPlCKfEt822HsW532ebb7d',
+          onSuccess: function(token) {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'smartcaptcha_token';
+            input.value = token;
+            document.getElementById('captcha-form').appendChild(input);
+          }
+        });
+      }
     };
   </script>
 </body>
