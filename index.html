@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Yandex SmartCaptcha Test</title>
+  <script src="https://smartcaptcha.yandex.net/smartcaptcha.js" async defer></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; text-align: center; padding: 50px; }
+    a { text-decoration: none; display: inline-block; margin-bottom: 20px; background: #4a90e2; color: white; padding: 8px 15px; border-radius: 5px; }
+    #smartcaptcha-container { display: inline-block; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <a href="https://captcha-test.github.io/home">← Back to Home</a>
+  <h1>Yandex SmartCaptcha</h1>
+  <form id="captcha-form" action="#" method="POST">
+    <div id="smartcaptcha-container"></div>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
 
+  <script>
+    // Initialize SmartCaptcha
+    window.ymSmartCaptchaInit = function() {
+      new SmartCaptcha({
+        container: 'smartcaptcha-container',
+        sitekey: 'ysc1_ixcFBGJXguan8q0Df8U9fAyVhWiPlCKfEt822HsW532ebb7d',
+        onSuccess: function(token) {
+          console.log('Captcha success, token:', token);
+          let input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'smartcaptcha_token';
+          input.value = token;
+          document.getElementById('captcha-form').appendChild(input);
+        }
+      });
+    };
+  </script>
+</body>
+</html>
